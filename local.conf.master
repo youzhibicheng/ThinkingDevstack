@@ -1,0 +1,483 @@
+# Sample ``local.conf`` for user-configurable variables in ``stack.sh``
+
+# NOTE: Copy this file to the root ``devstack`` directory for it to
+# work properly.
+
+# ``local.conf`` is a user-maintained setings file that is sourced from ``stackrc``.
+# This gives it the ability to override any variables set in ``stackrc``.
+# Also, most of the settings in ``stack.sh`` are written to only be set if no
+# value has already been set; this lets ``local.conf`` effectively override the
+# default values.
+
+# This is a collection of some of the settings we have found to be useful
+# in our DevStack development environments. Additional settings are described
+# in http://devstack.org/local.conf.html
+# These should be considered as samples and are unsupported DevStack code.
+
+# The ``localrc`` section replaces the old ``localrc`` configuration file.
+# Note that if ``localrc`` is present it will be used in favor of this section.
+[[local|localrc]]
+
+# Minimal Contents
+# ----------------
+
+# While ``stack.sh`` is happy to run without ``localrc``, devlife is better when
+# there are a few minimal variables set:
+
+
+
+# ----------------------------------------------------------------------------
+#  password settings
+# ----------------------------------------------------------------------------
+# If the ``SERVICE_TOKEN`` and ``*_PASSWORD`` variables are not set
+# here you will be prompted to enter values for them by ``stack.sh``
+# and they will be added to ``local.conf``.
+SERVICE_TOKEN=AdminToken
+ADMIN_PASSWORD=passw0rd
+MYSQL_PASSWORD=passw0rd
+RABBIT_PASSWORD=passw0rd
+SERVICE_PASSWORD=$ADMIN_PASSWORD
+
+
+
+# ----------------------------------------------------------------------------
+# IP settings
+# ----------------------------------------------------------------------------
+# ``HOST_IP`` should be set manually for best results if the NIC configuration
+# of the host is unusual, i.e. ``eth1`` has the default route but ``eth0`` is the
+# public interface.  It is auto-detected in ``stack.sh`` but often is indeterminate
+# on later runs due to the IP moving from an Ethernet interface to a bridge on
+# the host. Setting it here also makes it available for ``openrc`` to include
+# when setting ``OS_AUTH_URL``.
+# ``HOST_IP`` is not set by default.
+HOST_IP=127.0.0.1
+#HOST_IPV6=2001:db8::7
+SERVICE_HOST=$HOST_IP
+MYSQL_HOST=$HOST_IP
+RABBIT_HOST=$HOST_IP
+GLANCE_HOSTPORT=$HOST_IP:9292
+
+
+
+# ----------------------------------------------------------------------------
+# Logging
+# ----------------------------------------------------------------------------
+# set the DEST
+#DEST=/opt/stack
+#VERBOSE=True
+# The screen information will be saved in this directory
+SCREEN_LOGDIR=$DEST/logs
+
+# By default ``stack.sh`` output only goes to the terminal where it runs.  It can
+# be configured to additionally log to a file by setting ``LOGFILE`` to the full
+# path of the destination log file.  A timestamp will be appended to the given name.
+LOGFILE=$DEST/logs/stack.sh.log
+
+# Old log files are automatically removed after 7 days to keep things neat.  Change
+# the number of days by setting ``LOGDAYS``.
+LOGDAYS=1
+
+# Nova logs will be colorized if ``SYSLOG`` is not set; turn this off by setting
+# ``LOG_COLOR`` false.
+#LOG_COLOR=False
+
+
+
+# ----------------------------------------------------------------------------
+# Using master branches
+# ----------------------------------------------------------------------------
+##############
+#
+#  OpenStack Server Components
+#
+##############
+CINDER_BRANCH=master
+GLANCE_BRANCH=master
+HEAT_BRANCH=master
+HORIZON_BRANCH=master
+KEYSTONE_BRANCH=master
+NEUTRON_BRANCH=master
+NEUTRON_FWAAS_BRANCH=master
+NEUTRON_LBAAS_BRANCH=master
+NEUTRON_VPNAAS_BRANCH=master
+NOVA_BRANCH=master
+SWIFT_BRANCH=master
+
+##############
+#
+#  Testing Components
+#
+##############
+REQUIREMENTS_BRANCH=master
+#TEMPEST_BRANCH=master
+#TEMPEST_LIB_BRANCH=master
+
+##############
+#
+#  OpenStack Client Library Components
+#   Note default install is from pip, see LIBS_FROM_GIT
+#
+##############
+CINDERCLIENT_BRANCH=master
+GLANCECLIENT_BRANCH=master
+HEATCLIENT_BRANCH=master
+IRONICCLIENT_BRANCH=master
+KEYSTONEAUTH_BRANCH=master
+KEYSTONECLIENT_BRANCH=master
+NEUTRONCLIENT_BRANCH=master
+NOVACLIENT_BRANCH=master
+SWIFTCLIENT_BRANCH=master
+OPENSTACKCLIENT_BRANCH=master
+
+###################
+#
+#  Oslo Libraries
+#   Note default install is from pip, see LIBS_FROM_GIT
+#
+###################
+CLIFF_BRANCH=master
+FUTURIST_BRANCH=master
+DEBTCOLLECTOR_BRANCH=master
+AUTOMATON_BRANCH=master
+OSLOCACHE_BRANCH=master
+OSLOCON_BRANCH=master
+OSLOCFG_BRANCH=master
+OSLOCTX_BRANCH=master
+OSLODB_BRANCH=master
+OSLOI18N_BRANCH=master
+OSLOMSG_BRANCH=master
+OSLOMID_BRANCH=master
+OSLOPOLICY_BRANCH=master
+OSLOPRIVSEP_BRANCH=master
+OSLOREPORTS_BRANCH=master
+OSLORWRAP_BRANCH=master
+OSLOSERIALIZATION_BRANCH=master
+OSLOSERVICE_BRANCH=master
+OSLOUTILS_BRANCH=master
+OSLOVERSIONEDOBJECTS_BRANCH=master
+OSLOVMWARE_BRANCH=master
+OSPROFILER_BRANCH=master
+PYCADF_BRANCH=master
+STEVEDORE_BRANCH=master
+TASKFLOW_BRANCH=master
+TOOZ_BRANCH=master
+PBR_BRANCH=master
+
+##################
+#
+#  Libraries managed by OpenStack programs (non oslo)
+#
+##################
+GLANCE_STORE_BRANCH=master
+#HEAT_CFNTOOLS_BRANCH=master
+#HEAT_TEMPLATES_BRANCH=master
+HORIZONAUTH_BRANCH=master
+KEYSTONEMIDDLEWARE_BRANCH=master
+SWIFT3_BRANCH=master
+CEILOMETERMIDDLEWARE_BRANCH=master
+OS_BRICK_BRANCH=master
+#OS_VIF_BRANCH=master
+#IRONIC_LIB_BRANCH=master
+#DIB_BRANCH=master
+#NEUTRON_LIB_BRANCH=master
+
+##################
+#
+#  TripleO / Heat Agent Components
+#
+##################
+#DIB_UTILS_BRANCH=master
+#OAC_BRANCH=master
+#OCC_BRANCH=master
+#ORC_BRANCH=master
+
+#################
+#
+#  3rd Party Components (non pip installable)
+#
+#  NOTE(sdague): these should be converted to release version installs or removed
+#
+#################
+IRONIC_PYTHON_AGENT_BRANCH=master
+#NOVNC_BRANCH=master
+#SPICE_BRANCH=master
+
+
+
+# ----------------------------------------------------------------------------
+# change the git repository
+# ----------------------------------------------------------------------------
+#change from github to csdn
+#GIT_BASE=https://code.csdn.net
+#GIT_BASE=https://coding.net
+#GIT_BASE=http://git.oschina.net
+GIT_BASE=http://git.trystack.cn
+NOVNC_REPO=http://git.trystack.cn/kanaka/noVNC.git
+
+
+
+# ----------------------------------------------------------------------------
+# PIP repository
+# ----------------------------------------------------------------------------
+# to accucelarate, you can using download get_pip.py, install httpd and set a simple website
+#PIP_GET_PIP_URL=http://localhost/get-pip.py
+# using the pip repository in douban
+# /root/.pip/pip.conf
+# [global]
+# index-url = http://pypi.douban.com/simple/
+# [install]
+# trusted-host = pypi.douban.com
+
+
+
+# ----------------------------------------------------------------------------
+# RECLONE and OFFLINE option
+# ----------------------------------------------------------------------------
+# Reclone each time 
+#RECLONE=true
+
+# using pip to install Python enviroments
+# if OFFLINE is true, need to have get_pip.py in files
+#OFFLINE=true
+
+
+
+# ----------------------------------------------------------------------------
+# Default and prerequisites settings
+# ----------------------------------------------------------------------------
+# for the default configuration, please check file stackrc``
+
+# Pre-requisite 
+#ENABLED_SERVICES=rabbit,mysql
+
+# Database Backend MySQL
+#enable_service mysql
+
+# RPC Backend RabbitMQ
+#enable_service rabbit
+
+# If you want ZeroMQ instead of RabbitMQ (don't forget to un-declare 'rabbit' from the pre-requesite)
+#ENABLED_SERVICES+=,-rabbit,-qpid,zeromq
+
+# If you want Qpid instead of RabbitMQ (don't forget to un-declare 'rabbit' from the pre-requesite)
+#ENABLED_SERVICES+=,-rabbit,-zeromq,qpid
+
+
+
+# ----------------------------------------------------------------------------
+# For Keystone 
+# ----------------------------------------------------------------------------
+enable_service key
+#KEYSTONE_TOKEN_FORMAT=PKI
+
+
+
+# ----------------------------------------------------------------------------
+# Nova - Compute Service 
+# ----------------------------------------------------------------------------
+#ENABLED_SERVICES+=,n-api,n-crt,n-obj,n-cpu,n-cond,n-sch,n-novnc,n-cauth
+#IMAGE_URLS+=",https://launchpad.net/cirros/trunk/0.3.0/+download/cirros-0.3.0-x86_64-disk.img" 
+IMAGE_URLS="http://download.cirros-cloud.net/0.3.4/cirros-0.3.4-x86_64-disk.img"
+IMAGE_URLS+="http://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud-1603.qcow2"
+IMAGE_URLS+="http://cloud.centos.org/centos/6/images/CentOS-6-x86_64-GenericCloud-1603.qcow2"
+#IMAGE_URLS+=",http://fedorapeople.org/groups/heat/prebuilt-jeos-images/F17-x86_64-cfntools.qcow2" 
+
+# Nova Cells 
+#ENABLED_SERVICES+=,n-cell
+
+
+
+# ----------------------------------------------------------------------------
+# Neutron
+# ----------------------------------------------------------------------------
+# need to disable nova-network first
+disable_service n-net
+enable_service q-svc
+enable_service q-agt
+enable_service q-dhcp
+enable_service q-l3
+enable_service q-meta
+enable_service q-metering
+enable_service neutron
+#ENABLED_SERVICES+=,q-svc,q-agt,q-dhcp,q-l3,q-meta,q-metering,neutron
+
+# Neutron network configuration
+FIXED_RANGE="10.0.0.0/24"
+FLOATING_RANGE=192.168.1.0/24
+PUBLIC_NETWORK_GATEWAY=192.168.1.2
+Q_FLOATING_ALLOCATION_POLL=start=192.168.0.200,end=192.168.0.254
+#Q_USE_SECGROUP=True
+#Q_L3_ENABLED=True
+PUBLIC_INTERFACE=wlan0
+#Q_USE_PROVIDERNET_FOR_PUBLIC=True
+OVS_PHYSICAL_BRIDGE=br-ex
+PUBLIC_BRIDGE=br-ex
+OVS_BRIDGE_MAPPINGS=public:br-ex
+
+# Neutron - Load Balancing
+enable_service q-lbaas
+#ENABLED_SERVICES+=,q-lbaas 
+
+# Neutron - VPN as a Service
+enable_service q-vpn
+#ENABLED_SERVICES+=,q-vpn 
+  
+# Neutron - Firewall as a Service 
+enable_service q-fwaas
+#ENABLED_SERVICES+=,q-fwaas 
+  
+# Neutron Stuff
+#OVS_VLAN_RANGES=RegionOne:1:4000
+#OVS_ENABLE_TUNNELING=False
+
+# VLAN configuration
+Q_PLUGIN=ml2
+ENABLE_TENANT_VLANS=True
+
+# GRE tunnel configuration
+#Q_PLUGIN=ml2
+#ENABLE_TENANT_TUNNELS=True
+
+# VXLAN tunnel configuration
+#Q_PLUGIN=ml2
+#Q_ML2_TENANT_NETWORK_TYPE=vxlan
+
+
+
+# ----------------------------------------------------------------------------
+# Glance - Image Service 
+# ----------------------------------------------------------------------------
+enable_service g-api g-reg
+#ENABLED_SERVICES+=,g-api,g-reg
+
+
+
+
+# ----------------------------------------------------------------------------
+# Cinder - Block Device Service
+# ----------------------------------------------------------------------------
+#VOLUME_GROUP="cinder-volumes"
+enable_service cinder c-api c-vol c-sch c-bak
+#ENABLED_SERVICES+=,cinder,c-api,c-vol,c-sch
+
+
+
+# ----------------------------------------------------------------------------
+# Swift
+# ----------------------------------------------------------------------------
+# Swift is now used as the back-end for the S3-like object store. If Nova's
+# objectstore (``n-obj`` in ``ENABLED_SERVICES``) is enabled, it will NOT
+# run if Swift is enabled. Setting the hash value is required and you will
+# be prompted for it if Swift is enabled so just set it to something already:
+SWIFT_HASH=66a3d6b56c1f479c8b4e70ab5c2000f5
+
+# For development purposes the default of 3 replicas is usually not required.
+# Set this to 1 to save some resources:
+SWIFT_REPLICAS=1
+
+# The data for Swift is stored by default in (``$DEST/data/swift``),
+# or (``$DATA_DIR/swift``) if ``DATA_DIR`` has been set, and can be
+# moved by setting ``SWIFT_DATA_DIR``. The directory will be created
+# if it does not exist.
+SWIFT_DATA_DIR=$DEST/data
+
+# Enable Swift - Object Storage Service without replication.
+enable_service s-proxy s-object s-container s-account
+
+
+
+
+# ----------------------------------------------------------------------------
+# For Horizon (Dashboard UI) - (always use the trunk) 
+# ----------------------------------------------------------------------------
+enable_service horizon
+#ENABLED_SERVICES+=,horizon 
+#HORIZON_REPO=https://github.com/openstack/horizon 
+
+
+
+
+# ----------------------------------------------------------------------------
+# Heat - Orchestration Service 
+# ----------------------------------------------------------------------------
+enable_service heat h-api h-api-cfn h-api-cw h-eng
+#ENABLED_SERVICES+=,heat,h-api,h-api-cfn,h-api-cw,h-eng 
+
+
+
+# ----------------------------------------------------------------------------
+# Ceilometer - Metering Service (metering + alarming)
+# ----------------------------------------------------------------------------
+enable_plugin ceilometer https://git.openstack.org/openstack/ceilometer.git
+enable_plugin ceilometer http://git.trystack.cn/openstack/ceilometer.git
+#enable_service ceilometer-acompute ceilometer-acentral ceilometer-collector ceilometer-api
+#enable_service ceilometer-alarm-notify ceilometer-alarm-eval
+#enable_service ceilometer-anotification
+#CEILOMETER_BACKEND=mysql 
+#ENABLED_SERVICES+=,ceilometer-acompute,ceilometer-acentral,ceilometer-collector,ceilometer-api 
+#ENABLED_SERVICES+=,ceilometer-alarm-notify,ceilometer-alarm-eval
+
+
+
+# ----------------------------------------------------------------------------
+# trove
+# ----------------------------------------------------------------------------
+enable_service trove tr-api tr-tmgr tr-cond
+#ENABLED_SERVICES+=,trove,tr-api,tr-tmgr,tr-cond
+
+
+
+# ----------------------------------------------------------------------------
+# Sahara
+# ----------------------------------------------------------------------------
+enable_service sahara
+
+
+
+# ----------------------------------------------------------------------------
+# VNC configuration
+# ----------------------------------------------------------------------------
+# The VNC configuration
+#enable_service n-spice
+#enable_service n-xvnc
+enable_service n-novnc
+#ENABLED_SERVICES+=,n-novnc,n-xvnc
+
+
+
+# ----------------------------------------------------------------------------
+# Tempest  - The OpenStack Integration Test Suite
+# ----------------------------------------------------------------------------
+# Install the tempest test suite
+enable_service tempest
+
+
+
+# ----------------------------------------------------------------------------
+# Apache fronted for WSGI 
+# ----------------------------------------------------------------------------
+#APACHE_ENABLED_SERVICES+=keystone,swift
+
+
+
+
+# ----------------------------------------------------------------------------
+# Post action after installation
+# ----------------------------------------------------------------------------
+# 1. connection br-ex to public network, assume eth0 is the NIC which connect to public network
+#ovs-vsctl add-port br-ex eth0
+#ovs-vsctl show
+# 2. start and enable related service, take centos7 as example
+#sudo systemctl start httpd.service
+#sudo systemctl start mariadb.service
+#sudo systemctl start rabbitmq-server.service
+#sudo systemctl enable httpd.service
+#sudo systemctl enable mariadb.service
+#sudo systemctl enable rabbitmq-server.service
+# 3. execute rejoin-start.sh after reboot
+#./rejoin-stack.sh
+# 4. reinstall
+#./unstack.sh
+#./stack.sh
+# 5. verify the installation results
+#./exercise.sh

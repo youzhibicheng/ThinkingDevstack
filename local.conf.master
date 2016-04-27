@@ -50,7 +50,7 @@ SERVICE_PASSWORD=$ADMIN_PASSWORD
 # the host. Setting it here also makes it available for ``openrc`` to include
 # when setting ``OS_AUTH_URL``.
 # ``HOST_IP`` is not set by default.
-HOST_IP=127.0.0.1
+HOST_IP=192.168.31.44
 #HOST_IPV6=2001:db8::7
 SERVICE_HOST=$HOST_IP
 MYSQL_HOST=$HOST_IP
@@ -277,13 +277,29 @@ enable_service key
 # ----------------------------------------------------------------------------
 #ENABLED_SERVICES+=,n-api,n-crt,n-obj,n-cpu,n-cond,n-sch,n-novnc,n-cauth
 #IMAGE_URLS+=",https://launchpad.net/cirros/trunk/0.3.0/+download/cirros-0.3.0-x86_64-disk.img" 
-IMAGE_URLS="http://download.cirros-cloud.net/0.3.4/cirros-0.3.4-x86_64-disk.img"
-IMAGE_URLS+="http://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud-1603.qcow2"
-IMAGE_URLS+="http://cloud.centos.org/centos/6/images/CentOS-6-x86_64-GenericCloud-1603.qcow2"
+#IMAGE_URLS="http://download.cirros-cloud.net/0.3.4/cirros-0.3.4-x86_64-disk.img"
+#IMAGE_URLS+="http://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud-1603.qcow2"
+#IMAGE_URLS+="http://cloud.centos.org/centos/6/images/CentOS-6-x86_64-GenericCloud-1603.qcow2"
 #IMAGE_URLS+=",http://fedorapeople.org/groups/heat/prebuilt-jeos-images/F17-x86_64-cfntools.qcow2" 
 
 # Nova Cells 
 #ENABLED_SERVICES+=,n-cell
+
+
+
+# ---------------------------------------------------------------------------
+# Ironic
+#enable_service ironic
+#enable_service ir-api
+#enable_service ir-cond
+# nova using ironic as virt_driver
+#VIRT_DRIVER=ironic
+#IRONIC_HARDWARE=True
+#IRONIC_BAREMETAL_BASIC_OPS=True
+#IRONIC_DEPLOY_DRIVER=pxe_ipmitool
+#IRONIC_IPMI_USERNAME=ADMIN
+#IRONIC_IPMI_PASSWD=123456
+# ---------------------------------------------------------------------------
 
 
 
@@ -303,9 +319,9 @@ enable_service neutron
 
 # Neutron network configuration
 FIXED_RANGE="10.0.0.0/24"
-FLOATING_RANGE=192.168.1.0/24
-PUBLIC_NETWORK_GATEWAY=192.168.1.2
-Q_FLOATING_ALLOCATION_POLL=start=192.168.0.200,end=192.168.0.254
+FLOATING_RANGE=192.168.31.0/24
+PUBLIC_NETWORK_GATEWAY=192.168.31.2
+Q_FLOATING_ALLOCATION_POLL=start=192.168.31.200,end=192.168.31.254
 #Q_USE_SECGROUP=True
 #Q_L3_ENABLED=True
 PUBLIC_INTERFACE=wlan0
@@ -333,6 +349,19 @@ enable_service q-fwaas
 # VLAN configuration
 Q_PLUGIN=ml2
 ENABLE_TENANT_VLANS=True
+
+# FLAT network configuration
+#Q_ML2_TENANT_NETWORK_TYPE=flat
+#ENABLE_TENANT_TUNNELS=False
+#PHYSICAL_NETWORK=physnet1
+#Q_ML2_PLUGIN_TYPE_DRIVERS=flat
+#Q_ML2_PLUGIN_MECHANISM_DRIVERS=openvswitch
+#ENABLE_TENANT_VLANS=False
+#ENABLE_ISOLATED_METADATA=True
+#ENABLE_METADATA_NETWORK=True
+#Q_USE_PROVIDER_NETWORKING=True
+#FLAT_NETWORK_BRIDGE=br-ex
+#PROVIDER_NETWORK_TYPE=flat
 
 # GRE tunnel configuration
 #Q_PLUGIN=ml2
@@ -393,7 +422,6 @@ enable_service s-proxy s-object s-container s-account
 enable_service horizon
 #ENABLED_SERVICES+=,horizon 
 #HORIZON_REPO=https://github.com/openstack/horizon 
-
 
 
 

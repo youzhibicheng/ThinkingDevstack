@@ -21,5 +21,14 @@ chmod 0600 /opt/devstack/thinking-keypair.pem
 openstack security group rule create --proto icmp --src-ip 0.0.0.0/0 default
 openstack security group rule create --proto tcp --src-ip 0.0.0.0/0 --dst-port 22 default
 
+# install tftp
+#echo 'zouzhicheng' | sudo apt-get install -y tftp-hpa tftpd-hpa
+
+# install IPMI
+#echo 'zouzhicheng' | sudo apt-get install -y ipmitool
+#modprobe ipmi_msghandler
+#modprobe ipmi_devintf
+#modprobe ipmi_si
+
 # source demo to use
 source /opt/devstack/openrc demo demo

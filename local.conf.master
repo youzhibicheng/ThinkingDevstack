@@ -50,7 +50,7 @@ SERVICE_PASSWORD=$ADMIN_PASSWORD
 # the host. Setting it here also makes it available for ``openrc`` to include
 # when setting ``OS_AUTH_URL``.
 # ``HOST_IP`` is not set by default.
-HOST_IP=192.168.31.44
+HOST_IP=9.115.112.187
 #HOST_IPV6=2001:db8::7
 SERVICE_HOST=$HOST_IP
 MYSQL_HOST=$HOST_IP
@@ -437,7 +437,7 @@ enable_service heat h-api h-api-cfn h-api-cw h-eng
 # Ceilometer - Metering Service (metering + alarming)
 # ----------------------------------------------------------------------------
 enable_plugin ceilometer https://git.openstack.org/openstack/ceilometer.git
-enable_plugin ceilometer http://git.trystack.cn/openstack/ceilometer.git
+#enable_plugin ceilometer http://git.trystack.cn/openstack/ceilometer.git
 #enable_service ceilometer-acompute ceilometer-acentral ceilometer-collector ceilometer-api
 #enable_service ceilometer-alarm-notify ceilometer-alarm-eval
 #enable_service ceilometer-anotification
